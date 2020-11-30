@@ -139,7 +139,7 @@
 \def\E{\mathbb{E}}
 \def\calN{\mathcal{N}}
 \def\calD{\mathcal{D}}
-\def\slack{\url{http://xcs229i-scpd.slack.com/}}
+\def\slack{\url{http://xcs221-scpd.slack.com/}}
 \def\zipscriptalt{\texttt{python zip\_submission.py}}
 \DeclarePairedDelimiter\abs{\lvert}{\rvert}%
 

@@ -1,0 +1,4 @@
+🐍
+import re
+with open('submission.tex') as f: print((re.search(r'% 📝_entire_submission(.*?)% 📝_entire_submission', f.read(), re.DOTALL)).group(1))
+🐍

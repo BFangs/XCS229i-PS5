@@ -109,5 +109,27 @@ something like the following:
 
 <img src="https://render.githubusercontent.com/render/math?math=\LaTeX">
 
+## How to create a typeset submission using LaTeX on Overleaf
+[Overleaf](https://www.overleaf.com/) is an online WYSIWYG editor.  While we
+recommend becoming familiar with compiling LaTeX locally, you may instead prefer
+the ease of Overleaf. Follow these steps to get set up with Overleaf (after
+creating an account for yourself):
+
+1. Create a new "Blank Project".
+<img src="README_media/1.png">
+2. Give the project a name.
+3. Delete the file named "main.tex".
+<img src="README_media/3.png">
+4. Upload the following files to your project:
+- "submission.tex"
+- "macros.tex"
+<img src="README_media/4.png">
+5. Open the Overleaf menu at the top left.
+<img src="README_media/5.png">
+6. Change the "Main document" to "submission.tex".
+<img src="README_media/6.png">
+7. Recompile the document.
+<img src="README_media/7.png">
+
 Good luck with the assignment!  Remember that you can always submit organized
 and legible handwritten PDFs instead of typeset documents.

@@ -11,5 +11,5 @@ Briefly describe the differences you saw in unsupervised \emph{vs.} semi-supervi
 
 🐍
 import re
-with open('submission.tex') as f: print((re.search(r'% 📝_2f(.*?)% 📝_2f', f.read(), re.DOTALL)).group(1))
+with open('submission.tex') as f: print((re.search(r'% <SCPD_SUBMISSION_TAG>_2f(.*?)% <SCPD_SUBMISSION_TAG>_2f', f.read(), re.DOTALL)).group(1))
 🐍

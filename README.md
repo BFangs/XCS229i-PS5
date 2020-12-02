@@ -1,5 +1,5 @@
 # XCS Student Code Repository
-This repository contains all code for the corresponding assignment in XCS229ii.
+This repository contains all code for your assignment!
 The build tools in this repo can be used to run the autograder locally or
 compile a LaTeX submission.
 
@@ -27,7 +27,7 @@ The unit tests in `src/grader.py` will be used to autograde your submission.
 Run the autograder locally using the following terminal command within the
 `src/` subdirectory:
 ```
-(XCS229ii) $ python grader.py
+(XCS_ENV) $ python grader.py
 ```
 
 There are two types of unit tests used by our autograders:
@@ -44,7 +44,7 @@ For debugging purposes, a single unit test can be run locally.  For example, you
 can run the test case `3a-0-basic` using the following terminal command within
 the `src/` subdirectory:
 ```
-(XCS229ii) $ python grader.py 3a-0-basic
+(XCS_ENV) $ python grader.py 3a-0-basic
 ```
 
 ## How to create a typeset submission using LaTeX

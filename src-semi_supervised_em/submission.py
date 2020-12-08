@@ -170,6 +170,4 @@ if __name__ == '__main__':
     # affect the final predictions with and without supervision
     for t in range(NUM_TRIALS):
         main(is_semi_supervised=False, trial_num=t)
-
-        # *** START CODE HERE ***
-        # *** END CODE HERE ***
+        main(is_semi_supervised=True, trial_num=t)

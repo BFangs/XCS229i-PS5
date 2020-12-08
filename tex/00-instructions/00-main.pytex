@@ -26,9 +26,8 @@ R'''\input{00-instructions/03-honor-code}
 \bigskip
 ''')
 
-print(R'\clearpage')
-
 if meta['show_autograder_instructions']:
+  print(R'\clearpage')
   print(R'''
 \input{00-instructions/04-autograder}
 \bigskip''')

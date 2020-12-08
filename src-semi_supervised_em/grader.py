@@ -86,6 +86,18 @@ class Test_2d(GradedTestCase):
     solution_match = accuracy_score(student_pred, solution_pred)
     self.assertTrue(round(solution_match * 100, 2) > 70)
 
+  @graded(timeout=600)
+  def test_1(self):
+    """2d-1-basic:  Create plots to verify the EM implementation"""
+    skip = True
+    if not skip:
+      np.random.seed(229)
+      # Run 3 trials to see how different initializations
+      # affect the final predictions with and without supervision
+      for t in range(3):
+        submission.main(is_semi_supervised=False, trial_num=t)
+    self.assertTrue(True)
+
 class Test_2e(GradedTestCase):
   def setUp(self):
     np.random.seed(42)
@@ -124,6 +136,18 @@ class Test_2e(GradedTestCase):
 
     solution_match = accuracy_score(student_pred, solution_pred)
     self.assertTrue(round(solution_match * 100, 2) > 70)
+  
+  @graded(timeout=600)
+  def test_1(self):
+    """2e-1-basic:  Create plots to verify the semi-supervised EM implementation"""
+    skip = True
+    if not skip:
+      np.random.seed(229)
+      # Run 3 trials to see how different initializations
+      # affect the final predictions with and without supervision
+      for t in range(3):
+        submission.main(is_semi_supervised=True, trial_num=t)
+    self.assertTrue(True)
 
 def getTestCaseForTestID(test_id):
   question, part, _ = test_id.split('-')

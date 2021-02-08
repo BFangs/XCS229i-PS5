@@ -26,13 +26,7 @@ def init_centroids(num_clusters, image):
     """
 
     # *** START YOUR CODE ***
-    # raise NotImplementedError('init_centroids function not implemented')
-    H, W, C = np.shape(image)
-    centroids_init = np.zeros(shape=[num_clusters, C])
-
-    for idx in range(num_clusters):
-        h, w = random.randint(1, H - 1), random.randint(1, W - 1)
-        centroids_init[idx, :] = image[h, w, :]
+    raise NotImplementedError('init_centroids function not implemented')
     # *** END YOUR CODE ***
 
     return centroids_init
@@ -60,38 +54,7 @@ def update_centroids(centroids, image, max_iter=30, print_every=10):
     """
 
     # *** START YOUR CODE ***
-    # raise NotImplementedError('update_centroids function not implemented')
-    H, W, C = np.shape(image)
-    num_clusters = len(centroids)
-    new_centroids = np.zeros(shape=[num_clusters, C])
-
-    for it in range(max_iter):
-        # Usually expected to converge long before `max_iter` iterations
-        if it == 0 or (it + 1) % print_every == 0:
-            print("[INFO] Completed iteration {} of {}".format(it + 1, max_iter))
-        new_centroids = np.zeros(shape=[num_clusters, C])
-        new_assignments = np.zeros(shape=[num_clusters, 1])
-
-        for x in range(H):
-
-            for y in range(W):
-                # Initialize `dist` vector to keep track of distance to every centroid
-                dist = np.zeros(shape=[num_clusters, 1])
-
-                # Loop over all centroids and store distances in `dist`
-                for idx in range(num_clusters):
-                    d = centroids[idx, :] - image[x, y, :]
-                    dist[idx] = np.dot(np.transpose(d), d)
-
-                # Find closest centroid and update `new_centroids`
-                centroid_idx = dist.argmin()
-                new_assignments[centroid_idx] += 1
-                new_centroids[centroid_idx, :] += image[x, y, :]
-
-        # Update `new_centroids`
-        for idx in range(num_clusters):
-            if new_assignments[idx] > 0:
-                new_centroids[idx, :] = new_centroids[idx, :] / new_assignments[idx]
+    raise NotImplementedError('update_centroids function not implemented')
     # *** END YOUR CODE ***
 
     return new_centroids
@@ -116,24 +79,7 @@ def update_image(image, centroids):
     """
 
     # *** START YOUR CODE ***
-    # raise NotImplementedError('update_image function not implemented')
-    H, W, C = np.shape(image)
-    num_clusters = len(centroids)
-
-    for x in range(H):
-
-        for y in range(W):
-            # Initialize `dist` vector to keep track of distance to every centroid
-            dist = np.zeros(shape=[num_clusters, 1])
-
-            # Loop over all centroids and store distances in `dist`
-            for idx in range(num_clusters):
-                d = centroids[idx, :] - image[x, y, :]
-                dist[idx] = np.dot(np.transpose(d), d)
-
-            # Find closest centroid and update pixel value in `image`
-            centroid_idx = dist.argmin()
-            image[x, y, :] = centroids[centroid_idx]
+    raise NotImplementedError('update_image function not implemented')
     # *** END YOUR CODE ***
 
     return image

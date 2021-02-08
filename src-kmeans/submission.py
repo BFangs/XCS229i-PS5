@@ -26,7 +26,12 @@ def init_centroids(num_clusters, image):
     """
 
     # *** START YOUR CODE ***
-    raise NotImplementedError('init_centroids function not implemented')
+    centroids = []
+    rand = np.random.randint(128, size=(num_clusters, 2))
+    for i, j in rand:
+        centroids.append(image[i][j])
+
+    centroids_init = np.array(centroids)
     # *** END YOUR CODE ***
 
     return centroids_init
@@ -54,7 +59,25 @@ def update_centroids(centroids, image, max_iter=30, print_every=10):
     """
 
     # *** START YOUR CODE ***
-    raise NotImplementedError('update_centroids function not implemented')
+    new_centroids = centroids
+    for i in range(max_iter):
+        c_map = {}
+
+        for row in image:
+            for point in row:
+            
+                c = np.argmin(np.sum(np.square(new_centroids - point), axis=1))
+                c_map.setdefault(c, []).append(point)
+        
+        new_centroids = []
+        for val in c_map.values():
+            centroid = np.mean(np.array(val), axis=0, dtype=int)
+            new_centroids.append(centroid)
+
+        new_centroids = np.array(new_centroids)
+
+        if i%print_every == 0:
+            print("status", new_centroids)
     # *** END YOUR CODE ***
 
     return new_centroids
@@ -79,7 +102,12 @@ def update_image(image, centroids):
     """
 
     # *** START YOUR CODE ***
-    raise NotImplementedError('update_image function not implemented')
+    h, w, _ = image.shape
+    for i in range(h):
+        for j in range(w):
+            c = np.argmin(np.sum(np.square(centroids - image[i][j]), axis=1))
+            image[i][j] = centroids[c]
+
     # *** END YOUR CODE ***
 
     return image

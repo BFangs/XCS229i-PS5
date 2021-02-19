@@ -9,7 +9,7 @@ UNLABELED = -1  # Cluster label for unlabeled data points (do not change)
 
 
 def main(is_semi_supervised, trial_num):
-    """Problem 2: EM for Gaussian Mixture Models (unsupervised and semi-supervised)"""
+    """Problem 3: EM for Gaussian Mixture Models (unsupervised and semi-supervised)"""
     print('Running {} EM algorithm...'
           .format('semi-supervised' if is_semi_supervised else 'unsupervised'))
 
@@ -23,12 +23,6 @@ def main(is_semi_supervised, trial_num):
     z_tilde = z_all[labeled_idxs, :]   # Corresponding labels
     x = x_all[~labeled_idxs, :]        # Unlabeled examples
 
-    # (1) Initialize mu and sigma by splitting the n_examples data points uniformly at random
-    # into K groups, then calculating the sample mean and covariance for each group
-    # (2) Initialize phi to place equal probability on each Gaussian
-    # phi should be a numpy array of shape (K,)
-    # (3) Initialize the w values to place equal probability on each Gaussian
-    # w should be a numpy array of shape (m, K)
     # *** START CODE HERE ***
     # *** END CODE HERE ***
 
@@ -47,7 +41,7 @@ def main(is_semi_supervised, trial_num):
 
 
 def run_em(x, w, phi, mu, sigma, max_iter=1000):
-    """Problem 2(d): EM Algorithm (unsupervised).
+    """Problem 3(d): EM Algorithm (unsupervised).
 
     See inline comments for instructions.
 
@@ -72,12 +66,6 @@ def run_em(x, w, phi, mu, sigma, max_iter=1000):
     ll = prev_ll = None
     while it < max_iter and (prev_ll is None or np.abs(ll - prev_ll) >= eps):
         pass  # Just a placeholder for the starter code
-        # (1) E-step: Update your estimates in w
-        # (2) M-step: Update the model parameters phi, mu, and sigma
-        # (3) Compute the log-likelihood of the data to check for convergence.
-        # By log-likelihood, we mean `ll = sum_x[log(sum_z[p(x|z) * p(z)])]`.
-        # We define convergence by the first iteration where abs(ll - prev_ll) < eps.
-        # Hint: For debugging, recall part (a). We showed that ll should be monotonically increasing.
         # *** START CODE HERE
         # *** END CODE HERE ***
 
@@ -85,7 +73,7 @@ def run_em(x, w, phi, mu, sigma, max_iter=1000):
 
 
 def run_semi_supervised_em(x, x_tilde, z_tilde, w, phi, mu, sigma, max_iter=1000):
-    """Problem 2(e): Semi-Supervised EM Algorithm.
+    """Problem 3(e): Semi-Supervised EM Algorithm.
 
     See inline comments for instructions.
 
@@ -113,11 +101,6 @@ def run_semi_supervised_em(x, x_tilde, z_tilde, w, phi, mu, sigma, max_iter=1000
     ll = prev_ll = None
     while it < max_iter and (prev_ll is None or np.abs(ll - prev_ll) >= eps):
         pass  # Just a placeholder for the starter code
-        # (1) E-step: Update your estimates in w
-        # (2) M-step: Update the model parameters phi, mu, and sigma
-        # (3) Compute the log-likelihood of the data to check for convergence.
-        # Hint: Make sure to include alpha in your calculation of ll.
-        # Hint: For debugging, recall part (a). We showed that ll should be monotonically increasing.
         # *** START CODE HERE ***
         # *** END CODE HERE ***
 

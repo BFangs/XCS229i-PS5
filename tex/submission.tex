@@ -84,7 +84,7 @@ instructions to regenerate this handout with your typeset \LaTeX{} solutions.
 
     Based on this, the M-step becomes:
     \begin{align*}
-    \phi^{(t+1)}, \mu^{(t+1)}, S^{(t+1)} &=  \arg\max_{\phi,\mu,S} \sum_{i=1}^\nexp \sum_{j=1}^k Q_i^{(t)}(\zsi) \log \frac{p(\xsi,\zsi;\phi,\mu,S)}{Q_i^{(t)}(\zsi)} + \sum_{i=1}^{\tilde{\nexp}} \log p(\tilde{\xsi}, \tilde{\zsi}; \phi, \mu, S)\\
+    \phi^{(t+1)}, \mu^{(t+1)}, S^{(t+1)} &=  \arg\max_{\phi,\mu,S} \sum_{i=1}^\nexp \sum_{j=1}^k Q_i^{(t)}(\zsi) \log \frac{p(\xsi,\zsi;\phi,\mu,S)}{Q_i^{(t)}(\zsi)} + \alpha \sum_{i=1}^{\tilde{\nexp}} \log p(\tilde{\xsi}, \tilde{\zsi}; \phi, \mu, S)\\
     &=\\
     % ### START CODE HERE ###
     % ### END CODE HERE ###

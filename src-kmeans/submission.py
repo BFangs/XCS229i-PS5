@@ -25,8 +25,9 @@ def init_centroids(num_clusters, image):
         Randomly initialized centroids
     """
 
-    # *** START CODE HERE ***
-    # *** END CODE HERE ***
+    # *** START YOUR CODE ***
+    raise NotImplementedError('init_centroids function not implemented')
+    # *** END YOUR CODE ***
 
     return centroids_init
 
@@ -52,8 +53,9 @@ def update_centroids(centroids, image, max_iter=30, print_every=10):
         Updated centroids
     """
 
-    # *** START CODE HERE ***
-    # *** END CODE HERE ***
+    # *** START YOUR CODE ***
+    raise NotImplementedError('update_centroids function not implemented')
+    # *** END YOUR CODE ***
 
     return new_centroids
 
@@ -76,8 +78,9 @@ def update_image(image, centroids):
         Updated image
     """
 
-    # *** START CODE HERE ***
-    # *** END CODE HERE ***
+    # *** START YOUR CODE ***
+    raise NotImplementedError('update_image function not implemented')
+    # *** END YOUR CODE ***
 
     return image
 

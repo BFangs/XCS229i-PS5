@@ -28,7 +28,7 @@ def main(is_semi_supervised, trial_num):
     # (2) Initialize phi to place equal probability on each Gaussian
     # phi should be a numpy array of shape (K,)
     # (3) Initialize the w values to place equal probability on each Gaussian
-    # w should be a numpy array of shape (m, K)
+    # w should be a numpy array of shape (n, K)
     # *** START CODE HERE ***
     # *** END CODE HERE ***
 

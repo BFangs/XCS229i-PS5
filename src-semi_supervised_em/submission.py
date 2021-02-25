@@ -1,10 +1,11 @@
 import matplotlib.pyplot as plt
 import numpy as np
 import os
+from scipy import stats
 
 PLOT_COLORS = ['red', 'green', 'blue', 'orange']  # Colors for your plots
 K = 4           # Number of Gaussians in the mixture model
-NUM_TRIALS = 3  # Number of trials to run (can be adjusted for debugging)
+NUM_TRIALS = 1  # Number of trials to run (can be adjusted for debugging)
 UNLABELED = -1  # Cluster label for unlabeled data points (do not change)
 
 
@@ -30,13 +31,21 @@ def main(is_semi_supervised, trial_num):
     # (3) Initialize the w values to place equal probability on each Gaussian
     # w should be a numpy array of shape (n, K)
     # *** START CODE HERE ***
+    n, dim = x.shape
+    np.random.shuffle(x)
+    groups = np.split(x, K)
+
+    mu = [np.mean(x, axis=0) for x in groups]
+    sigma = [np.cov(x.T) for x in groups]
+    phi = np.full(K, 1/K)
+    w = np.full((n, K), 1/K)
     # *** END CODE HERE ***
 
     if is_semi_supervised:
         w = run_semi_supervised_em(x, x_tilde, z_tilde, w, phi, mu, sigma)
     else:
         w = run_em(x, w, phi, mu, sigma)
-
+    # return
     # Plot your predictions
     z_pred = np.zeros(n)
     if w is not None:  # Just a placeholder for the starter code
@@ -71,7 +80,6 @@ def run_em(x, w, phi, mu, sigma, max_iter=1000):
     it = 0
     ll = prev_ll = None
     while it < max_iter and (prev_ll is None or np.abs(ll - prev_ll) >= eps):
-        pass  # Just a placeholder for the starter code
         # (1) E-step: Update your estimates in w
         # (2) M-step: Update the model parameters phi, mu, and sigma
         # (3) Compute the log-likelihood of the data to check for convergence.
@@ -79,6 +87,24 @@ def run_em(x, w, phi, mu, sigma, max_iter=1000):
         # We define convergence by the first iteration where abs(ll - prev_ll) < eps.
         # Hint: For debugging, recall part (a). We showed that ll should be monotonically increasing.
         # *** START CODE HERE
+        prev_ll = ll
+        # (1) E-step: Update your estimates in w
+        w = log_likelihood(w.shape, x, phi, mu, sigma)
+        # (2) M-step: Update the model parameters phi, mu, and sigma
+        phi = np.mean(w, axis=0)
+        for j, mu_j in enumerate(mu):
+            delta = x - mu_j
+            w_diag =np.matrix(np.diag(w[:,j]))
+            sigma_j = delta.T * w_diag * delta
+
+            sigma[j]=(sigma_j) / np.sum(w[:,j], axis = 0)
+            mu[j] = (w[:,j][:,np.newaxis] * x).sum(axis=0) / w[:,j].sum()
+            
+        # (3) Compute the log-likelihood of the data to check for convergence.
+        loss = np.zeros((len(mu), x.shape[0]))
+
+        ll = np.log(np.sum(log_likelihood(w.shape, x, phi, mu, sigma), axis=1)).sum()
+        print(ll)
         # *** END CODE HERE ***
 
     return w
@@ -125,6 +151,30 @@ def run_semi_supervised_em(x, x_tilde, z_tilde, w, phi, mu, sigma, max_iter=1000
 
 
 # *** START CODE HERE ***
+def log_likelihood(shape, x, phi, mu, sigma):
+    likelihood = np.zeros(shape)
+    for i in range(shape[1]):
+        expected = stats.multivariate_normal.pdf(x, mu[i], sigma[i])
+        
+        my_func = multivariate_normal(x, mu[i], sigma[i])
+
+        # print(expected.shape, my_func.shape)
+        # print(my_func[0] - expected[0])
+        likelihood[:,i] = expected * phi[i]
+    
+    denominator = likelihood.sum(axis=1)[:, np.newaxis]
+    return likelihood / denominator
+
+def multivariate_normal(x, mu, sigma):
+    k = x.shape[1]
+    delta = x - mu
+
+    det = np.linalg.det(sigma) ** (-1/2)
+    part1 = ((2*np.pi)**(-k/2))*(det**(-1/2))
+    # part2 = np.exp(-(np.linalg.solve(sigma, delta).T.dot(delta)) / 2)
+    part2 = np.exp((-1/2)*delta.dot(np.linalg.inv(sigma)).dot(delta.T)).mean(axis=1)
+
+    return part1*part2
 # *** END CODE HERE ***
 
 
@@ -187,4 +237,4 @@ if __name__ == '__main__':
     # affect the final predictions with and without supervision
     for t in range(NUM_TRIALS):
         main(is_semi_supervised=False, trial_num=t)
-        main(is_semi_supervised=True, trial_num=t)
+        # main(is_semi_supervised=True, trial_num=t)

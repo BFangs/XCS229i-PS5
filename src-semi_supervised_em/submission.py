@@ -5,7 +5,7 @@ from scipy import stats
 
 PLOT_COLORS = ['red', 'green', 'blue', 'orange']  # Colors for your plots
 K = 4           # Number of Gaussians in the mixture model
-NUM_TRIALS = 1  # Number of trials to run (can be adjusted for debugging)
+NUM_TRIALS = 3  # Number of trials to run (can be adjusted for debugging)
 UNLABELED = -1  # Cluster label for unlabeled data points (do not change)
 
 
@@ -87,6 +87,7 @@ def run_em(x, w, phi, mu, sigma, max_iter=1000):
         # We define convergence by the first iteration where abs(ll - prev_ll) < eps.
         # Hint: For debugging, recall part (a). We showed that ll should be monotonically increasing.
         # *** START CODE HERE
+        it += 1
         prev_ll = ll
         # (1) E-step: Update your estimates in w
         w = log_likelihood(w.shape, x, phi, mu, sigma)
@@ -156,25 +157,24 @@ def log_likelihood(shape, x, phi, mu, sigma):
     for i in range(shape[1]):
         expected = stats.multivariate_normal.pdf(x, mu[i], sigma[i])
         
-        my_func = multivariate_normal(x, mu[i], sigma[i])
-
-        # print(expected.shape, my_func.shape)
-        # print(my_func[0] - expected[0])
-        likelihood[:,i] = expected * phi[i]
+        my_norm = multivariate_normal(x, mu[i], sigma[i])
+        # print("multi norm inputs", x.shape, phi.shape, mu[i].shape, sigma[i].shape)
+        # print("multi norm", my_norm.shape, my_norm.flatten()[0].shape)
+        likelihood[:,i] = my_norm * phi[i]
     
     denominator = likelihood.sum(axis=1)[:, np.newaxis]
     return likelihood / denominator
 
 def multivariate_normal(x, mu, sigma):
-    k = x.shape[1]
+    n, k = x.shape
     delta = x - mu
 
     det = np.linalg.det(sigma) ** (-1/2)
-    part1 = ((2*np.pi)**(-k/2))*(det**(-1/2))
-    # part2 = np.exp(-(np.linalg.solve(sigma, delta).T.dot(delta)) / 2)
+    part1 = 1/np.sqrt(((2*np.pi)**k)*det)
     part2 = np.exp((-1/2)*delta.dot(np.linalg.inv(sigma)).dot(delta.T)).mean(axis=1)
 
-    return part1*part2
+    # print("multi norm inside", delta.shape, det, part1, part2.shape)
+    return (part1*part2).flatten()
 # *** END CODE HERE ***
 
 
@@ -237,4 +237,4 @@ if __name__ == '__main__':
     # affect the final predictions with and without supervision
     for t in range(NUM_TRIALS):
         main(is_semi_supervised=False, trial_num=t)
-        # main(is_semi_supervised=True, trial_num=t)
+        main(is_semi_supervised=True, trial_num=t)
